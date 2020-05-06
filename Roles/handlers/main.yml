@@ -1,0 +1,6 @@
+---
+# handlers file for odesh
+- name: service
+  service: name=apache2 state=started
+- name: docker
+  service: name=docker state=started
