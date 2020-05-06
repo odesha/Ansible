@@ -1,0 +1,10 @@
+---
+# tasks file for odesh
+- name: install git
+  apt: name=git state=latest
+- name: install docker
+  apt: name=docker state=latest
+- name: install apache2
+  apt: name=apache2 state=latest
+- include_tasks: copy.yml
+- include_tasks: create.yml
