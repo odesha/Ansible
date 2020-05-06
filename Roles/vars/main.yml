@@ -1,0 +1,4 @@
+---
+# vars file for odesh
+file1: "index.html"
+file2: "dockerfile"
