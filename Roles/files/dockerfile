@@ -1,0 +1,4 @@
+FROM centos
+RUN apt update -y && apt install httpd -y
+EXPOSE 80
+CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
