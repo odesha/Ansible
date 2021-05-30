@@ -1,0 +1,72 @@
+#ansible-galaxy init odesh--->
+
+#ll------>tasks/---->main.yml
+# tasks file for odesh
+- name: install git
+  apt: name=git state=latest
+- name: install docker
+  apt: name=docker state=latest
+- name: install apache2
+  apt: name=apache2 state=latest
+- include_tasks: copy.yml
+- include_tasks: create.yml
+
+#--------->tocuh copy.yml create.yml---->nano--->copy.yml create.yml
+
+---
+- name: Copy index.html
+  copy: src={{file1}} dest={{destination}}
+  notify: service
+- name: Copy dockerfile
+  copy: src={{file2}} dest={{destination}}
+  notify: docker
+
+
+---
+- name: create a test.html file
+  command: touch {{destination}}/test.html
+- name: Create a folder
+  command: mkdir {{destination}}/index
+
+#---->odesh/vars/----->main.yml----->
+
+---
+# vars file for odesh
+file1: "index.html" 
+file2: "dockerfile"
+destination: "/var/www/html"
+
+#------>odesh/handlers/------------>main.yml---->
+
+---
+# handlers file for odesh
+- name: service
+  service: name=apache2 state=started
+- name: docker
+  service: name=docker state=started
+
+#---->odesha/files/------>nano index.html dockerfile---->
+
+This is a test file that will be run using the roles(index.html)
+
+(dockerfile)
+FROM centos
+RUN apt update -y && apt install httpd -y
+EXPOSE 80
+CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
+
+
+#---->ansible/odesh/---tree-->
+
+#---->ansible/---->nano main.yml
+
+---      
+- hosts: localhost
+  become: true
+  become_method: sudo
+  roles:
+  - odesh
+
+     
+
+#ansible-playbook main.yml
