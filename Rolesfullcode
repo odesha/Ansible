@@ -1,7 +1,7 @@
 #ansible-galaxy init odesh--->
 
 #ll------>tasks/---->main.yml
-# tasks file for odesh
+# tasks file for odesh (vaidyanatha)
 - name: install git
   apt: name=git state=latest
 - name: install docker
